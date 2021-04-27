@@ -25,6 +25,9 @@ TranslationManager::TranslationManager(QCoreApplication& app) : app(app) {
     const auto translationDir = getTranslationDir();
 
     auto myappTranslator = new QTranslator();
+    qDebug() << QLocale::system().name();
+    qDebug() << QLocale::system().nativeCountryName();
+    qDebug() << QLocale::system().nativeLanguageName();
     myappTranslator->load(translationDir + "/ui." + systemLocale + ".qm");
     myappTranslator->load(translationDir + "/ui." + shortSystemLocale + ".qm");
     app.installTranslator(myappTranslator);
