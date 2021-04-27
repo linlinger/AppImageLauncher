@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="launcherTab">
       <attribute name="title">
@@ -27,13 +27,13 @@
        <item>
         <widget class="QGroupBox" name="launcherGroupBox">
          <property name="title">
-          <string>Launcher Dialog</string>
+          <string>启动器集成提示</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QCheckBox" name="askMoveCheckBox">
             <property name="text">
-             <string>Ask whether to move AppImage files into the applications directory</string>
+             <string>询问我是否将Appimage移动至预先定义好的目录</string>
             </property>
            </widget>
           </item>
@@ -43,7 +43,7 @@
        <item>
         <widget class="QGroupBox" name="integrationDirectoryGroupBox">
          <property name="title">
-          <string>Location where to store your AppImage files to ease their management</string>
+          <string>存放Appimage的地儿</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -51,7 +51,7 @@
             <item>
              <widget class="QLineEdit" name="applicationsDirLineEdit">
               <property name="text">
-               <string notr="true"/>
+               <string notr="true">存放Appimage的地儿</string>
               </property>
               <property name="placeholderText">
                <string>Applications directory path</string>
@@ -92,7 +92,7 @@
           <locale language="English" country="UnitedStates"/>
          </property>
          <property name="title">
-          <string>Available Features</string>
+          <string>可用的功能</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
@@ -161,7 +161,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this box is checked, AppImageLauncher automatically starts a daemon called appimagelauncherd.&lt;/p&gt;&lt;p&gt;This daemon automatically integrates AppImages you copy into the &amp;quot;Applications directory&amp;quot; and the additional directories you configured. When the files are deleted, the daemon will clean up the integration data.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string>Auto start auto-integration daemon</string>
+             <string>开机时启动Appimage集成帮助程序</string>
             </property>
            </widget>
           </item>
@@ -174,7 +174,7 @@
           <locale language="English" country="UnitedStates"/>
          </property>
          <property name="title">
-          <string>Additional directories to watch</string>
+          <string>于此同时监控以下目录</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
@@ -188,7 +188,8 @@
                <string>Add new directory to list</string>
               </property>
               <property name="icon">
-               <iconset theme="add"/>
+               <iconset theme="add">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </widget>
             </item>
@@ -201,7 +202,8 @@
                <string>Remove selected directory from list</string>
               </property>
               <property name="icon">
-               <iconset theme="remove"/>
+               <iconset theme="remove">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </widget>
             </item>

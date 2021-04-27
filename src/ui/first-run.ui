@@ -44,7 +44,7 @@
       <string notr="true"/>
      </property>
      <property name="pixmap">
-      <pixmap>:/AppImageLauncher.svg</pixmap>
+      <pixmap resource="resources.qrc">:/AppImageLauncher.svg</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -72,7 +72,7 @@
       </size>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Welcome to AppImageLauncher!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This little helper is designed to improve your AppImage experience on your computer.&lt;/p&gt;&lt;p&gt;It appears you have never run AppImageLauncher before. Please take a minute and configure your preferences. You can always change these later on, using the control panel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;欢迎来到Appimage启动器！&lt;/span&gt;&lt;/p&gt;&lt;p&gt;这个小助手就是为了提高你使用Appimage的使用体验而设计的&lt;/p&gt;&lt;p&gt;似乎你从未使用过此软件过。请花一点儿时间完成设置。此后你随时可以在Appimage启动器设置中调整偏好设置。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -94,7 +94,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Ask me whether to move new AppImages into a central location</string>
+      <string>询问我是否将Appimage移动到某个特定目录</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -115,7 +115,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Integration target destination directory:</string>
+        <string>Appimage集中保存目录</string>
        </property>
       </widget>
      </item>
@@ -151,7 +151,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Customize</string>
+          <string>自定义</string>
          </property>
         </widget>
        </item>
@@ -174,7 +174,12 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+  <include location="resources.qrc"/>
+  <include location="resources.qrc"/>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
