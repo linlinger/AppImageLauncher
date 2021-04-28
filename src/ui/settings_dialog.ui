@@ -185,7 +185,7 @@
             <item>
              <widget class="QToolButton" name="additionalDirsAddButton">
               <property name="toolTip">
-               <string>Add new directory to list</string>
+               <string>向列表中添加新目录</string>
               </property>
               <property name="icon">
                <iconset theme="add">
