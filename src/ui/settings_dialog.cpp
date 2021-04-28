@@ -208,9 +208,9 @@ void SettingsDialog::onAddDirectoryToWatchButtonClicked() {
     fileDialog.setWindowTitle(tr("选择需要监测的目录"));
     fileDialog.setDirectory(QStandardPaths::locate(QStandardPaths::HomeLocation, ".", QStandardPaths::LocateDirectory));
     qDebug() << "item icon unavailable, using fallback";
-    qDebug() << QLocale::system().name();
-    qDebug() << QLocale::system().nativeCountryName();
-    qDebug() << QLocale::system().nativeLanguageName();
+    qDebug() << "LANG:" << Locale::system().name();
+    qDebug() << "country" << QLocale::system().nativeCountryName();
+    qDebug() << "syslanguage"<<zQLocale::system().nativeLanguageName();
 
     // Gtk+ >= 3 segfaults when trying to use the native dialog, therefore we need to enforce the Qt one
     // See #218 for more information
