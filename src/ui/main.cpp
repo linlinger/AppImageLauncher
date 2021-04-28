@@ -394,7 +394,7 @@ int main(int argc, char** argv) {
                 // translate separately to share string with the other dialog
                 QObject::tr("The directory the integrated AppImages are stored in is currently set to:\n"
                             "%1").arg(integratedAppImagesDestination().path()) + "\n",
-                QMessageBox::是 | QMessageBox::否
+                QMessageBox::OK | QMessageBox::Cancel
             );
 
             messageBox->setDefaultButton(QMessageBox::Yes);
