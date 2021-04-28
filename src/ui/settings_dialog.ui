@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>appimage启动器设置</string>
+   <string>Appimage启动器设置</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="launcherTab">
       <attribute name="title">
-       <string notr="true">appimage启动器</string>
+       <string notr="true">Appimage启动器</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -143,7 +143,7 @@
      </widget>
      <widget class="QWidget" name="daemonTab">
       <attribute name="title">
-       <string notr="true">appimage启动器守护进程</string>
+       <string notr="true">Appimage启动器守护进程</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
