@@ -38,6 +38,11 @@ SettingsDialog::SettingsDialog(QWidget* parent) :
 
 #ifdef ENABLE_UPDATE_HELPER
     availableFeatures << "<span style='color: green;'>✔</span> " + tr("在支持自动升级的Appimage可使用用无缝升级功能");
+    qDebug() << "item icon unavailable, using fallback";
+    qDebug() << QLocale::system().name();
+    qDebug() << QLocale::system().nativeCountryName();
+    qDebug() << QLocale::system().nativeLanguageName();
+
 #else
     availableFeatures << "<span style='color: red;'>🞬</span> " + tr("无缝升级功能不可用");
 #endif
@@ -202,6 +207,10 @@ void SettingsDialog::onAddDirectoryToWatchButtonClicked() {
     fileDialog.setFileMode(QFileDialog::DirectoryOnly);
     fileDialog.setWindowTitle(tr("选择需要监测的目录"));
     fileDialog.setDirectory(QStandardPaths::locate(QStandardPaths::HomeLocation, ".", QStandardPaths::LocateDirectory));
+    qDebug() << "item icon unavailable, using fallback";
+    qDebug() << QLocale::system().name();
+    qDebug() << QLocale::system().nativeCountryName();
+    qDebug() << QLocale::system().nativeLanguageName();
 
     // Gtk+ >= 3 segfaults when trying to use the native dialog, therefore we need to enforce the Qt one
     // See #218 for more information
