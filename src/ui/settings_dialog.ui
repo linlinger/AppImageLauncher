@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>AppImageLauncher Settings</string>
+   <string>appimage启动器设置</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="launcherTab">
       <attribute name="title">
-       <string notr="true">AppImageLauncher</string>
+       <string notr="true">appimage启动器</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -143,7 +143,7 @@
      </widget>
      <widget class="QWidget" name="daemonTab">
       <attribute name="title">
-       <string notr="true">appimagelauncherd</string>
+       <string notr="true">appimage启动器守护进程</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
@@ -251,7 +251,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::“好”</set>
      </property>
     </widget>
    </item>
