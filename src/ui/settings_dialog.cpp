@@ -92,7 +92,7 @@ void SettingsDialog::addDirectoryToWatchToListView(const QString& dirPath) {
         qDebug() << "item icon unavailable, using fallback";
         qDebug() << QLocale::system().name();
         qDebug() << QLocale::system().nativeCountryName();
-        qDebug() << QLocale::system().nativeLanguageName()
+        qDebug() << QLocale::system().nativeLanguageName();
     }
 
     auto* item = new QListWidgetItem(icon, dirPath);
