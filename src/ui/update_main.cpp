@@ -26,10 +26,10 @@ extern "C" {
 
 int main(int argc, char** argv) {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("Updates AppImages after desktop integration, for use by Linux distributions"));
+    parser.setApplicationDescription(QObject::tr("给使用Linux针对集成进的Appimage进行升级"));
 
     QApplication app(argc, argv);
-    QApplication::setApplicationDisplayName(QObject::tr("AppImageLauncher update", "update helper app name"));
+    QApplication::setApplicationDisplayName(QObject::tr("AppImage管理器升级", "升级帮助程序名儿"));
     QApplication::setWindowIcon(QIcon(":/AppImageLauncher.svg"));
 
     std::ostringstream version;
@@ -55,18 +55,18 @@ int main(int argc, char** argv) {
     const auto pathToAppImage = parser.positionalArguments().first();
 
     auto criticalUpdaterError = [](const QString& message) {
-        QMessageBox::critical(nullptr, "Error", message);
+        QMessageBox::critical(nullptr, "错误", message);
     };
 
     if (!QFile(pathToAppImage).exists()) {
-        criticalUpdaterError(QString::fromStdString(QObject::tr("Error: no such file or directory: %1").arg(pathToAppImage).toStdString()));
+        criticalUpdaterError(QString::fromStdString(QObject::tr("错误：无此文件或目录: %1").arg(pathToAppImage).toStdString()));
         return 1;
     }
 
     const auto type = appimage_get_type(pathToAppImage.toStdString().c_str(), false);
 
     if (type <= 0 || type > 2) {
-        criticalUpdaterError(QObject::tr("Not an AppImage: %1").arg(pathToAppImage));
+        criticalUpdaterError(QObject::tr("这不是AppImage: %1").arg(pathToAppImage));
         return 1;
     }
 
@@ -96,28 +96,27 @@ int main(int argc, char** argv) {
         case 0: {
             QMessageBox::information(
                 nullptr,
-                QObject::tr("No updates found"),
-                QObject::tr("Could not find updates for AppImage %1").arg(pathToAppImage)
+                QObject::tr("无可用更新"),
+                QObject::tr("无可用更新对此 AppImage %1").arg(pathToAppImage)
             );
             return 0;
         }
         case -1: {
             QMessageBox::information(
                 nullptr,
-                QObject::tr("No update information found"),
-                QObject::tr("Could not find update information in AppImage:\n%1"
+                QObject::tr("无升级信息"),
+                QObject::tr("无法在此 AppImage内发现升级信息:\n%1"
                             "\n"
                             "\n"
-                            "The AppImage doesn't support updating. Please ask the authors to embed "
-                            "update information to allow for easy updating.").arg(pathToAppImage)
+                            "此Appimage不支持无缝更新。请联系作者添加升级信息以支持无缝升级 ").arg(pathToAppImage)
             );
             return 0;
         }
         default: {
             QMessageBox::information(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to check for updates:\n\n%1").arg(updaterStatusMessages.str().c_str())
+                QObject::tr("错误："),
+                QObject::tr("无法为:\n\n%1 检查更新").arg(updaterStatusMessages.str().c_str())
             );
             return 1;
         }
@@ -129,13 +128,13 @@ int main(int argc, char** argv) {
     bool removeAfterUpdate = false;
 
     {
-        const auto message = QObject::tr("An update has been found for the AppImage %1").arg(pathToAppImage) +
+        const auto message = QObject::tr("发现更新 %1").arg(pathToAppImage) +
                              "\n\n" +
-                             QObject::tr("Do you want to perform the update?") + "\n";
+                             QObject::tr("是否升级?") + "\n";
 
-        QMessageBox messageBox(QMessageBox::Icon::Question, "Update found", message, QMessageBox::Ok | QMessageBox::Cancel);
+        QMessageBox messageBox(QMessageBox::Icon::Question, "发现更新", message, QMessageBox::Ok | QMessageBox::Cancel);
 
-        QCheckBox removeCheckBox(QObject::tr("Remove old AppImage after successful update"));
+        QCheckBox removeCheckBox(QObject::tr("在更新完成后移除先前版本的Appimage"));
         removeCheckBox.setChecked(false);
 
         messageBox.setCheckBox(&removeCheckBox);
@@ -150,7 +149,7 @@ int main(int argc, char** argv) {
         removeAfterUpdate = removeCheckBox.isChecked();
     }
 
-    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, "Update anyway?");
+    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, "仍然升级?");
 
     auto rv = updater.exec();
 
@@ -158,8 +157,8 @@ int main(int argc, char** argv) {
     if (rv != 0) {
         QMessageBox::information(
             nullptr,
-            QObject::tr("Error"),
-            QObject::tr("Failed to update AppImage:\n\n%1").arg(updaterStatusMessages.str().c_str())
+            QObject::tr("错误："),
+            QObject::tr("下列程序升级失败:\n\n%1").arg(updaterStatusMessages.str().c_str())
         );
 
         return rv;
@@ -173,7 +172,7 @@ int main(int argc, char** argv) {
 
     // sanity check
     if (!QFile::exists(pathToUpdatedAppImage)) {
-        criticalUpdaterError(QObject::tr("File reported as updated does not exist: %1").arg(pathToUpdatedAppImage));
+        criticalUpdaterError(QObject::tr("升级文件不存在: %1").arg(pathToUpdatedAppImage));
         return 1;
     }
 
@@ -181,7 +180,7 @@ int main(int argc, char** argv) {
 
     if (!appimage_shall_not_be_integrated(pathToAppImage.toStdString().c_str())) {
         if (!installDesktopFileAndIcons(pathToUpdatedAppImage)) {
-            criticalUpdaterError(QObject::tr("Failed to register updated AppImage in system"));
+            criticalUpdaterError(QObject::tr("无法安装升级后的Appimage"));
             return 1;
         }
     }
@@ -195,12 +194,12 @@ int main(int argc, char** argv) {
         // don't need to unregister nor delete the file
         if (pathToIntegratedAppImage != pathToIntegratedUpdatedAppImage) {
             if (appimage_unregister_in_system(pathToAppImage.toStdString().c_str(), false) != 0) {
-                criticalUpdaterError(QObject::tr("Failed to unregister old AppImage in system"));
+                criticalUpdaterError(QObject::tr("无法删除旧版本"));
                 return 1;
             }
 
             if (!QFile::remove(pathToAppImage)) {
-                criticalUpdaterError(QObject::tr("Failed to remove old AppImage"));
+                criticalUpdaterError(QObject::tr("无法移除Appimage"));
                 return 1;
             }
         }

@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Desktop Integration</string>
+   <string>桌面集成</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>

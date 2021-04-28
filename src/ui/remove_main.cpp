@@ -26,9 +26,9 @@ extern "C" {
 
 int main(int argc, char** argv) {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("Helper to delete integrated AppImages easily, e.g., from the application launcher's context menu"));
+    parser.setApplicationDescription(QObject::tr("轻松删除Appimage的一个小助手, 比如通过这个应用的右键菜单"));
     QApplication app(argc, argv);
-    QApplication::setApplicationDisplayName("AppImageLauncher");
+    QApplication::setApplicationDisplayName("AppImage启动器");
     QApplication::setWindowIcon(QIcon(":/AppImageLauncher.svg"));
 
     std::ostringstream version;
@@ -103,8 +103,8 @@ int main(int argc, char** argv) {
     if (!unregisterAppImage(pathToAppImage)) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to unregister AppImage: %1").arg(pathToAppImage)
+                QObject::tr("错误"),
+                QObject::tr("无法移除 %1").arg(pathToAppImage)
         );
         return 1;
     }
@@ -115,8 +115,8 @@ int main(int argc, char** argv) {
     if (!bin.disposeAppImage(pathToAppImage)) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to move AppImage into trash bin directory")
+                QObject::tr("错误"),
+                QObject::tr("无法将其移动至回收站")
         );
         return 1;
     }
@@ -127,8 +127,8 @@ int main(int argc, char** argv) {
     if (!bin.cleanUp()) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to clean up AppImage trash bin: %1").arg(bin.path())
+                QObject::tr("错误"),
+                QObject::tr("无法清空回收站: %1").arg(bin.path())
         );
         return 1;
     }

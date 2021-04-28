@@ -124,7 +124,7 @@ QCoreApplication* getApp(char** argv) {
         app = new QCoreApplication(*fakeArgc, fakeArgv);
     } else {
         auto uiApp = new QApplication(*fakeArgc, fakeArgv);
-        QApplication::setApplicationDisplayName("AppImageLauncher");
+        QApplication::setApplicationDisplayName("AppImage启动器");
 
         // this doesn't seem to have any effect... but it doesn't hurt either
         uiApp->setWindowIcon(QIcon(":/AppImageLauncher.svg"));
@@ -148,7 +148,7 @@ int main(int argc, char** argv) {
 
     // clean up old desktop files
     if (!cleanUpOldDesktopIntegrationResources()) {
-        displayError(QObject::tr("Failed to clean up old desktop files"));
+        displayError(QObject::tr("未能成功清理之前的桌面文件"));
         return 1;
     }
 
@@ -217,7 +217,7 @@ int main(int argc, char** argv) {
     auto pathToAppImage = QDir(QString(argv[1])).absolutePath();
 
     if (!QFile(pathToAppImage).exists()) {
-        displayError(QObject::tr("Error: no such file or directory: %1").arg(pathToAppImage));
+        displayError(QObject::tr("错误：无此目录或者文件 %1").arg(pathToAppImage));
         return 1;
     }
 
@@ -280,7 +280,7 @@ int main(int argc, char** argv) {
     }
 
     if (config == nullptr) {
-        displayError("Could not read config file");
+        displayError("无法读取配置文件");
     }
 
     // if the user opted out of the "ask move" thing, we can just run the AppImage
@@ -382,19 +382,19 @@ int main(int argc, char** argv) {
         if (needToAskAboutMoving) {
             auto* messageBox = new QMessageBox(
                 QMessageBox::Warning,
-                QMessageBox::tr("Warning"),
-                QMessageBox::tr("AppImage %1 has already been integrated, but it is not in the current integration "
-                                "destination directory."
+                QMessageBox::tr("警告"),
+                QMessageBox::tr(" %1 已被集成至系统中, 但软件不是当前版本 "
+                                "目标目录."
                                 "\n\n"
-                                "Do you want to move it into the new destination?"
+                                "你是否想将其移动至一个新目录?"
                                 "\n\n"
-                                "Choosing No will run the AppImage once, and leave the AppImage in its current "
-                                "directory."
+                                "若选择否将会只运行此Appimage，不会将其集成至系统中"
+                                "目录."
                                 "\n\n").arg(pathToAppImage) +
                 // translate separately to share string with the other dialog
                 QObject::tr("The directory the integrated AppImages are stored in is currently set to:\n"
                             "%1").arg(integratedAppImagesDestination().path()) + "\n",
-                QMessageBox::Yes | QMessageBox::No
+                QMessageBox::是 | QMessageBox::否
             );
 
             messageBox->setDefaultButton(QMessageBox::Yes);
@@ -406,7 +406,7 @@ int main(int argc, char** argv) {
             if (messageBox->clickedButton() == messageBox->button(QMessageBox::Yes)) {
                 // unregister AppImage, move, and re-integrate
                 if (appimage_unregister_in_system(pathToAppImage.toStdString().c_str(), false) != 0) {
-                    displayError(QMessageBox::tr("Failed to unregister AppImage before re-integrating it"));
+                    displayError(QMessageBox::tr("无法在重新集成此Appimage前取消其集成状态"));
                     return 1;
                 }
 
@@ -435,7 +435,7 @@ int main(int argc, char** argv) {
         case IntegrationDialog::RunOnce:
             return runAppImage(pathToAppImage, appImageArgv.size(), appImageArgv.data());
         default:
-            displayError(QObject::tr("Unexpected result from the integration dialog."));
+            displayError(QObject::tr("发生了未知错误."));
             return 1;
     }
 }

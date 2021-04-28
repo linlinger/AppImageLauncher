@@ -90,6 +90,9 @@ void SettingsDialog::addDirectoryToWatchToListView(const QString& dirPath) {
 
     if (icon.isNull()) {
         qDebug() << "item icon unavailable, using fallback";
+        qDebug() << QLocale::system().name();
+        qDebug() << QLocale::system().nativeCountryName();
+        qDebug() << QLocale::system().nativeLanguageName()
     }
 
     auto* item = new QListWidgetItem(icon, dirPath);
@@ -197,7 +200,7 @@ void SettingsDialog::onAddDirectoryToWatchButtonClicked() {
     QFileDialog fileDialog(this);
 
     fileDialog.setFileMode(QFileDialog::DirectoryOnly);
-    fileDialog.setWindowTitle(tr("Select additional directory to watch"));
+    fileDialog.setWindowTitle(tr("选择需要监测的目录"));
     fileDialog.setDirectory(QStandardPaths::locate(QStandardPaths::HomeLocation, ".", QStandardPaths::LocateDirectory));
 
     // Gtk+ >= 3 segfaults when trying to use the native dialog, therefore we need to enforce the Qt one
