@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>First run</string>
+   <string>首次运行</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
