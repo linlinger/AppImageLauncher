@@ -83,7 +83,7 @@ private Q_SLOTS:
         if (oldDir.isEmpty())
             oldDir = integratedAppImagesDestination().absolutePath();
 
-        auto newDir = QFileDialog::getExistingDirectory(this, tr("Choose integration destination dir"), oldDir);
+        auto newDir = QFileDialog::getExistingDirectory(this, tr("请选择Appimage保存目录"), oldDir);
 
         // the call above returns an empty string if the user aborts the dialog
         if (!newDir.isEmpty()) {

@@ -37,7 +37,7 @@ QString TrashBin::path() {
 
 bool TrashBin::disposeAppImage(const QString& pathToAppImage) {
     if (!QFile(pathToAppImage).exists()) {
-        std::cerr << "No such file or directory: " << pathToAppImage.toStdString() << std::endl;
+        std::cerr << "无此文件或目录: " << pathToAppImage.toStdString() << std::endl;
         return false;
     }
 
@@ -70,11 +70,11 @@ bool TrashBin::cleanUp() {
             continue;
 
         if (!d->canBeCleanedUp(currentPath)) {
-            std::cerr << "Cannot clean up AppImage yet: " << currentPath.toStdString() << std::endl;
+            std::cerr << "无法删除: " << currentPath.toStdString() << std::endl;
             continue;
         }
 
-        std::cerr << "Removing AppImage: " << currentPath.toStdString() << std::endl;
+        std::cerr << "正在删除: " << currentPath.toStdString() << std::endl;
 
         // silently ignore if files can not be removed
         // they shall be removed on subsequent runs
