@@ -37,15 +37,14 @@ SettingsDialog::SettingsDialog(QWidget* parent) :
     QStringList availableFeatures;
 
 #ifdef ENABLE_UPDATE_HELPER
-    availableFeatures << "<span style='color: green;'>✔</span> " + tr("updater available for AppImages supporting AppImageUpdate");
+    availableFeatures << "<span style='color: green;'>✔</span> " + tr("在支持自动升级的Appimage可使用用无缝升级功能");
 #else
-    availableFeatures << "<span style='color: red;'>🞬</span> " + tr("updater unavailable");
+    availableFeatures << "<span style='color: red;'>🞬</span> " + tr("无缝升级功能不可用");
 #endif
 
 #ifdef BUILD_LITE
     availableFeatures << "<br /><br />"
-                      << tr("<strong>Note: this is an AppImageLauncher Lite build, only supports a limited set of features</strong><br />"
-                            "Please install the full version via the provided native packages to enjoy the full AppImageLauncher experience");
+                      << tr("<strong>请注意: 这是轻量化的Appimage管理器，，请通过原生二进制包安装以解锁全部功能。</strong><br />");
 #endif
 
     ui->featuresLabel->setText(availableFeatures.join('\n'));
@@ -181,7 +180,7 @@ void SettingsDialog::onChooseAppsDirClicked() {
     QFileDialog fileDialog(this);
 
     fileDialog.setFileMode(QFileDialog::DirectoryOnly);
-    fileDialog.setWindowTitle(tr("Select Applications directory"));
+    fileDialog.setWindowTitle(tr("请选择应用程序保存目录"));
     fileDialog.setDirectory(integratedAppImagesDestination().absolutePath());
 
     // Gtk+ >= 3 segfaults when trying to use the native dialog, therefore we need to enforce the Qt one

@@ -132,7 +132,7 @@
           </font>
          </property>
          <property name="text">
-          <string notr="true">path placeholder</string>
+          <string notr="true">请选择Appimage保存目录</string>
          </property>
         </widget>
        </item>
