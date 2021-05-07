@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QFileIconProvider>
 #include <QStandardPaths>
+#include <QQPushButton>
 
 // local
 #include "settings_dialog.h"
@@ -15,7 +16,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) :
     ui->setupUi(this);
 
     ui->applicationsDirLineEdit->setPlaceholderText(integratedAppImagesDestination().absolutePath());
-
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确定"));
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
     loadSettings();
 
 // cosmetic changes in lite mode
