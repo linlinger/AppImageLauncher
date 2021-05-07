@@ -1,5 +1,6 @@
 // libraries
 #include <QApplication>
+#include <QLibraryInfo>
 
 // local
 #include <translationmanager.h>
@@ -11,7 +12,7 @@ int main(int argc, char** argv) {
     QApplication::setApplicationDisplayName("AppImage启动器设置");
     QApplication::setWindowIcon(QIcon(":/AppImageLauncher.svg"));
     QTranslator qtTranslator;
-    qttranslator.load("qt_" + QLocale::system().name(),QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qtTranslator.load("qt_" + QLocale::system().name(),QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator( &qtTranslator );
     TranslationManager mgr(app);
 //
