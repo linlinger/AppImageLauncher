@@ -17,6 +17,8 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
+#include <QPushButton>
+#include <QTranslator>
 
 QT_BEGIN_NAMESPACE
 
