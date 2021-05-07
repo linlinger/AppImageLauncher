@@ -3,7 +3,7 @@
 #include <QFileDialog>
 #include <QFileIconProvider>
 #include <QStandardPaths>
-#include <QQPushButton>
+#include <QPushButton>
 
 // local
 #include "settings_dialog.h"
