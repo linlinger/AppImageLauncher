@@ -152,7 +152,7 @@
           <locale language="English" country="UnitedStates"/>
          </property>
          <property name="title">
-          <string>General settings</string>
+          <string>通用设置</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
