@@ -1,7 +1,6 @@
 // libraries
 #include <QApplication>
 #include <QLibraryInfo>
-#include <QDebug>
 
 // local
 #include <translationmanager.h>
