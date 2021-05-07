@@ -10,7 +10,9 @@ int main(int argc, char** argv) {
     QApplication app(argc, argv);
     QApplication::setApplicationDisplayName("AppImage启动器设置");
     QApplication::setWindowIcon(QIcon(":/AppImageLauncher.svg"));
-
+    QTranslator qtTranslator;
+    qtTranslator.load( "../../i18n/qt_zh_CN.qm");
+    app.installTranslator( &qtTranslator );
     TranslationManager mgr(app);
 //
 //    // we ship some very basic fallbacks for icons used in the settings dialog
