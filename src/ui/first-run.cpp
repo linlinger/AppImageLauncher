@@ -15,6 +15,7 @@
 #include <QLayout>
 #include <QStyle>
 #include <QUrl>
+#include <QPushButton>
 
 // local includes
 #include "ui_first-run.h"
@@ -122,7 +123,9 @@ private:
 
         // reset defaults
         resetDefaults();
-
+        firstRunDialog->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确定"));
+        firstRunDialog->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
+        firstRunDialog->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setText(tr("恢复默认"));
         // set up all connections
         connect(firstRunDialog->buttonBox, &QDialogButtonBox::clicked, this, &FirstRunDialog::handleButtonClicked);
         connect(firstRunDialog->askMoveCheckBox, &QCheckBox::stateChanged, this, &FirstRunDialog::handleAskMoveCheckBoxStateChange);
