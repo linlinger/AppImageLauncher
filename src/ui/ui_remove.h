@@ -38,8 +38,6 @@ public:
         RemoveDialog->setWindowModality(Qt::WindowModal);
         RemoveDialog->resize(415, 96);
         RemoveDialog->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-        RemoveDialog->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确定"));
-        RemoveDialog->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
         gridLayout = new QGridLayout(RemoveDialog);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout = new QVBoxLayout();
