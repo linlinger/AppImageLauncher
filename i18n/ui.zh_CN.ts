@@ -711,5 +711,19 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
         <source>Select additional directory to watch</source>
         <translation>选择监视的其他文件夹</translation>
     </message>
+    </name>
+    <name>QPlatformTheme</name>
+    <message>
+        <location filename="../src/widgets/qdialogbuttonbox.cpp" line="+42"/>
+        <location line="+18"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location line="+54"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    </name>
 </context>
 </TS>
