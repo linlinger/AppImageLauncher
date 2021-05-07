@@ -396,6 +396,15 @@ int main(int argc, char** argv) {
                             "%1").arg(integratedAppImagesDestination().path()) + "\n",
                 QMessageBox::Yes | QMessageBox::Cancel
             );
+            if (NULL != messageBox->button(QMessageBox::Yes))
+                            {
+                                messageBox->button(QMessageBox::Yes)->setText("是");
+                            }
+                            if (NULL != messageBox->button(QMessageBox::No))
+                            {
+                                messageBox->button(QMessageBox::No)->setText("否");
+                            };
+
 
             messageBox->setDefaultButton(QMessageBox::Yes);
             messageBox->show();
