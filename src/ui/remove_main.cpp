@@ -54,19 +54,19 @@ int main(int argc, char** argv) {
     const auto pathToAppImage = parser.positionalArguments().first();
 
     if (!QFile(pathToAppImage).exists()) {
-        QMessageBox::critical(nullptr, "Error", QObject::tr("Error: no such file or directory: %1").arg(pathToAppImage));
+        QMessageBox::critical(nullptr, "错误", QObject::tr("无此路径或文件 %1").arg(pathToAppImage));
         return 1;
     }
 
-    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, "Delete anyway?");
+    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, " 仍然删除?");
 
     const auto type = appimage_get_type(pathToAppImage.toStdString().c_str(), false);
 
     if (type <= 0 || type > 2) {
         QMessageBox::critical(
             nullptr,
-            QObject::tr("AppImage delete helper error"),
-            QObject::tr("Not an AppImage:\n\n%1").arg(pathToAppImage)
+            QObject::tr("Appimage卸载组件错误"),
+            QObject::tr("这个不是Appimage:\n\n%1").arg(pathToAppImage)
         );
         return 1;
     }
