@@ -919,12 +919,13 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
             );
             if (NULL != messageBox->button(QMessageBox::Yes))
                             {
-                                messageBox->button(QMessageBox::Yes)->setText("是");
+                                QmessageBox->button(QMessageBox::Yes)->setText("是");
                             }
                             if (NULL != messageBox->button(QMessageBox::No))
                             {
-                                messageBox->button(QMessageBox::No)->setText("否");
+                                QmessageBox->button(QMessageBox::No)->setText("否");
                             };
+
             messageBox->setDefaultButton(QMessageBox::No);
             messageBox->show();
 
