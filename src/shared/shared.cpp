@@ -906,14 +906,14 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
         // if it does, the existing AppImage needs to be removed before rename can be called
         if (QFile(pathToIntegratedAppImage).exists()) {
             std::ostringstream message;
-            message << QObject::tr("与此同名的Appimage已被集成至系统中.").toStdString() << std::endl
+            message << QObject::tr("AppImage with same filename has already been integrated.").toStdString() << std::endl
                     << std::endl
-                    << QObject::tr("是否覆盖现有的Appimage").toStdString() << std::endl
-                    << QObject::tr("选择否将仅运行Appimage一次,不会对系统进行任何更改。").toStdString();
+                    << QObject::tr("Do you wish to overwrite the existing AppImage?").toStdString() << std::endl
+                    << QObject::tr("Choosing No will run the AppImage once, and leave the system in its current state.").toStdString();
 
             auto* messageBox = new QMessageBox(
                 QMessageBox::Warning,
-                QObject::tr("警告"),
+                QObject::tr("Warning"),
                 QString::fromStdString(message.str()),
                 QMessageBox::Yes | QMessageBox::No
             );
@@ -941,9 +941,9 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
         if (!QFile(pathToAppImage).rename(pathToIntegratedAppImage)) {
             auto* messageBox = new QMessageBox(
                 QMessageBox::Critical,
-                QObject::tr("错误"),
-                QObject::tr("无法移动Appimage至预设目录下。\n"
-                            "是否尝试覆盖?"),
+                QObject::tr("Error"),
+                QObject::tr("Failed to move AppImage to target location.\n"
+                            "Try to copy AppImage instead?"),
                 QMessageBox::Ok | QMessageBox::Cancel
             );
 
@@ -956,7 +956,7 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
                 return INTEGRATION_FAILED;
 
             if (!QFile(pathToAppImage).copy(pathToIntegratedAppImage)) {
-                displayError("未能将Appimage拷贝至预设目录下");
+                displayError("Failed to copy AppImage to target location");
                 return INTEGRATION_FAILED;
             }
         }
