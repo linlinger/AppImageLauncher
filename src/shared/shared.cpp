@@ -917,7 +917,14 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
                 QString::fromStdString(message.str()),
                 QMessageBox::Yes | QMessageBox::No
             );
-
+            if (NULL != messageBox->button(QMessageBox::Yes))
+            {
+                messageBox->button(QMessageBox::Yes)->setText("是");
+            }
+            if (NULL != messageBox->button(QMessageBox::No))
+            {
+                messageBox->button(QMessageBox::No)->setText("否");
+            };
             messageBox->setDefaultButton(QMessageBox::No);
             messageBox->show();
 
@@ -1289,9 +1296,14 @@ QIcon loadIconWithFallback(const QString& iconName) {
     // first we check the directory that would be expected with in the build environment
     QDir fallbackIconDirectory = QDir(binaryDir + "/../../resources/" + subdirName);
 
-    // if that doesn't work, we check the private data directory, which should work when AppImageLauncher is installed
-    // through the packages or in Lite's AppImage
-    if (!fallbackIconDirectory.exists()) {
+    // if that doesn't work, we check the private data directory, which should work when AppImageLauncher is in            if (NULL != messageBox->button(QMessageBox::Yes))
+                            {
+                                messageBox->button(QMessageBox::Yes)->setText("是");
+                            }
+                            if (NULL != messageBox->button(QMessageBox::No))
+                            {
+                                messageBox->button(QMessageBox::No)->setText("否");
+                            };
         auto privateDataDir = pathToPrivateDataDirectory();
 
         if (privateDataDir.length() > 0 && QDir(privateDataDir).exists()) {
