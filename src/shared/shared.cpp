@@ -1,3 +1,4 @@
+
 // system includes
 #include <fstream>
 #include <iostream>
@@ -917,17 +918,6 @@ IntegrationState integrateAppImage(const QString& pathToAppImage, const QString&
                 QString::fromStdString(message.str()),
                 QMessageBox::Yes | QMessageBox::No
             );
-<<<<<<< HEAD
-            if (NULL != messageBox->button(QMessageBox::Yes))
-                            {
-                                QmessageBox->button(QMessageBox::Yes)->setText("是");
-                            }
-                            if (NULL != messageBox->button(QMessageBox::No))
-                            {
-                                QmessageBox->button(QMessageBox::No)->setText("否");
-                            };
-=======
->>>>>>> parent of d1a8e0e (translate the buttons again)
 
             messageBox->setDefaultButton(QMessageBox::No);
             messageBox->show();
