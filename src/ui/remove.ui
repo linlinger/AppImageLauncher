@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Delete AppImage</string>
+   <string>移除 AppImage</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
