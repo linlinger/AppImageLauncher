@@ -87,8 +87,8 @@ int main(int argc, char** argv) {
 
     ui.setupUi(&dialog);
     ui.pathLabel->setText(pathToAppImage);
-    ui.verticalLayout->buttonBox->button(QDialogButtonBox::Ok)->setText("确认");
-    ui.verticalLayout->buttonBox->button(QDialogButtonBox::Ok)->setText("取消");
+    ui.verticalLayout->QDialogButtonBox->button(QDialogButtonBox::Ok)->setText("确认");
+    ui.verticalLayout->QDialogButtonBox->button(QDialogButtonBox::Ok)->setText("取消");
     // must be done *after* loading the UI into the dialog
     setUpFallbackIconPaths(&dialog);
     
