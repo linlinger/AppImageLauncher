@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
     }
 
     // this tool should not do anything if the file isn't integrated
-    // the file is only supposed to work on integrated AppImages and _nothing else_
+    // the file is only supposed to work o  n integrated AppImages and _nothing else_
 //    if (!hasAlreadyBeenIntegrated(pathToAppImage)) {
 //        QMessageBox::critical(
 //                nullptr,
@@ -87,8 +87,8 @@ int main(int argc, char** argv) {
 
     ui.setupUi(&dialog);
     ui.pathLabel->setText(pathToAppImage);
-    ui->QDialogButtonBox->button(QDialogButtonBox::Ok)->setText("确认");
-    ui->QDialogButtonBox->button(QDialogButtonBox::Ok)->setText("取消");
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText("确认");
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText("取消");
     // must be done *after* loading the UI into the dialog
     setUpFallbackIconPaths(&dialog);
     
