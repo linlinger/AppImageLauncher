@@ -87,14 +87,6 @@ int main(int argc, char** argv) {
 
     ui.setupUi(&dialog);
     ui.pathLabel->setText(pathToAppImage);
-                if (NULL != messageBox->button(QMessageBox::Yes))
-                            {
-                                messageBox->button(QMessageBox::Yes)->setText("是");
-                            }
-                            if (NULL != messageBox->button(QMessageBox::No))
-                            {
-                                messageBox->button(QMessageBox::No)->setText("否");
-                            };
 
     // must be done *after* loading the UI into the dialog
     setUpFallbackIconPaths(&dialog);
