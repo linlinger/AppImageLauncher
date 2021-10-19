@@ -721,7 +721,25 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
         return pointerList;
     };
 
-    std::vector<std::string> desktopActions = {"Remove"};
+    std::vector<std::string> desktopActions;
+
+    // we may not just overwrite the existing actions key, as then the actions cannot be used any more from the context menu
+    {
+        const auto* actionsEntry = g_key_file_get_string(desktopFile.get(), G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_ACTIONS, error.get());
+        for (const QString& action : QString(actionsEntry).split(";")) {
+            if (action.isEmpty()) {
+                continue;
+            }
+
+            desktopActions.emplace_back(action.toStdString());
+        }
+    }
+
+    // use a "vendor prefix" to avoid collisions with existing actions, as "Update" and "Remove" are generic terms
+    static const std::string removeActionKey{"AppImageLauncher-Remove-AppImage"};
+    static const std::string updateActionKey{"AppImageLauncher-Update-AppImage"};
+
+    desktopActions.emplace_back(removeActionKey);
 
     // load translations from JSON file(s)
     QMap<QString, QString> removeActionNameTranslations;
@@ -794,10 +812,10 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
 
     // add Remove action
     {
-        const auto removeSectionName = "Desktop Action Remove";
+        const auto removeSectionName = "Desktop Action " + removeActionKey;
 
-        g_key_file_set_string(desktopFile.get(), removeSectionName, "Name", "Delete this AppImage");
-        g_key_file_set_string(desktopFile.get(), removeSectionName, "Icon", helperIconName);
+        g_key_file_set_string(desktopFile.get(), removeSectionName.c_str(), "Name", "Delete this AppImage");
+        g_key_file_set_string(desktopFile.get(), removeSectionName.c_str(), "Icon", helperIconName);
 
         std::ostringstream removeExecPath;
 
@@ -809,13 +827,13 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
 
         removeExecPath << " \"" << pathToAppImage.toStdString() << "\"";
 
-        g_key_file_set_string(desktopFile.get(), removeSectionName, "Exec", removeExecPath.str().c_str());
+        g_key_file_set_string(desktopFile.get(), removeSectionName.c_str(), "Exec", removeExecPath.str().c_str());
 
         // install translations
         auto it = QMapIterator<QString, QString>(removeActionNameTranslations);
         while (it.hasNext()) {
             auto entry = it.next();
-            g_key_file_set_locale_string(desktopFile.get(), removeSectionName, "Name", entry.key().toStdString().c_str(), entry.value().toStdString().c_str());
+            g_key_file_set_locale_string(desktopFile.get(), removeSectionName.c_str(), "Name", entry.key().toStdString().c_str(), entry.value().toStdString().c_str());
         }
     }
 
@@ -827,12 +845,12 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
         // but only if there's update information
         if (!updater.updateInformation().empty()) {
             // section needs to be announced in desktop actions list
-            desktopActions.emplace_back("Update");
+            desktopActions.emplace_back(updateActionKey);
 
-            const auto updateSectionName = "Desktop Action Update";
+            const auto updateSectionName = "Desktop Action " + updateActionKey;
 
-            g_key_file_set_string(desktopFile.get(), updateSectionName, "Name", "Update this AppImage");
-            g_key_file_set_string(desktopFile.get(), updateSectionName, "Icon", helperIconName);
+            g_key_file_set_string(desktopFile.get(), updateSectionName.c_str(), "Name", "Update this AppImage");
+            g_key_file_set_string(desktopFile.get(), updateSectionName.c_str(), "Icon", helperIconName);
 
             std::ostringstream updateExecPath;
 
@@ -843,13 +861,13 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
 #endif
             updateExecPath << " \"" << pathToAppImage.toStdString() << "\"";
 
-            g_key_file_set_string(desktopFile.get(), updateSectionName, "Exec", updateExecPath.str().c_str());
+            g_key_file_set_string(desktopFile.get(), updateSectionName.c_str(), "Exec", updateExecPath.str().c_str());
 
             // install translations
             auto it = QMapIterator<QString, QString>(updateActionNameTranslations);
             while (it.hasNext()) {
                 auto entry = it.next();
-                g_key_file_set_locale_string(desktopFile.get(), updateSectionName, "Name", entry.key().toStdString().c_str(), entry.value().toStdString().c_str());
+                g_key_file_set_locale_string(desktopFile.get(), updateSectionName.c_str(), "Name", entry.key().toStdString().c_str(), entry.value().toStdString().c_str());
             }
         }
     }
