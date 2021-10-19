@@ -14,24 +14,11 @@
 TranslationManager::TranslationManager(QCoreApplication& app) : app(app) {
     // set up translations
     auto qtTranslator = new QTranslator();
-    qtTranslator->load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qtTranslator->load(getTranslationFile());
     app.installTranslator(qtTranslator);
-
-    const auto systemLocale = QLocale::system().name();
-
-    // we're using primarily short names for translations, so we should load these translations as well
-    const auto shortSystemLocale = systemLocale.split('_')[0];
-
-    const auto translationDir = getTranslationDir();
-
-    auto myappTranslator = new QTranslator();
-    myappTranslator->load(translationDir + "/ui." + systemLocale + ".qm");
-    myappTranslator->load(translationDir + "/ui." + shortSystemLocale + ".qm");
-    app.installTranslator(myappTranslator);
 
     // store translators in list so they won't be deleted
     installedTranslators.push_back(qtTranslator);
-    installedTranslators.push_back(myappTranslator);
 }
 
 TranslationManager::~TranslationManager() {
@@ -70,6 +57,6 @@ QString TranslationManager::getTranslationDir() {
 }
 QString TranslationManager::getTranslationFile(){
     const auto systemLocale = QLocale::system().name(); //Get system current locale .This would print like zh_CN
-    const auto translationFileDir = translationDirPrefix + "/ui." + systemLocale + ".qm";   //Get the translation file path
+    const auto translationFileDir = getTranslationDir() + "/ui." + systemLocale + ".qm";   //Get the translation file path
     return translationFileDir;
 }
