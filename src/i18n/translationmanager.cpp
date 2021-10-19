@@ -68,8 +68,3 @@ QString TranslationManager::getTranslationDir() {
 
     return translationDir;
 }
-QString TranslationManager::getTranslationFile(){
-    const auto systemLocale = QLocale::system().name(); //Get system current locale .This would print like zh_CN
-    const auto translationFileDir = translationDirPrefix + "/ui." + systemLocale + ".qm";   //Get the translation file path
-    return translationFileDir;
-}

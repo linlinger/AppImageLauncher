@@ -22,5 +22,4 @@ public:
 public:
     // get translation dir
     static QString getTranslationDir();
-    static QString getTranslationFile();
 };
