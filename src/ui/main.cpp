@@ -131,7 +131,6 @@ QCoreApplication* getApp(char** argv) {
 
         app = uiApp;
     }
-
     QCoreApplication::setApplicationName("AppImageLauncher");
     QCoreApplication::setApplicationVersion(QString::fromStdString(version));
 
