@@ -46,7 +46,7 @@ QTimer* setupBinaryUpdatesMonitor(char* const* argv) {
     QObject::connect(timer, &QTimer::timeout, [argv]() {
         long newBinaryModificationTime = readFileModificationTime(argv[0]);
         if (newBinaryModificationTime != binaryModificationTime) {
-            std::cerr << "Binary file changed since the applications was started, proceeding to restart it."
+            std::cerr << "从启动以来文件发生变化。正在重新启动"
                       << std::endl;
             execv(argv[0], argv);
         }
@@ -59,10 +59,10 @@ QTimer* setupBinaryUpdatesMonitor(char* const* argv) {
 
 void initialSearchForAppImages(const QDirSet& dirsToSearch, Worker& worker) {
     // initial search for AppImages; if AppImages are found, they will be integrated, unless they already are
-    std::cout << "Searching for existing AppImages" << std::endl;
+    std::cout << "查找已存在的Appimage" << std::endl;
 
     for (const auto& dir : dirsToSearch) {
-        std::cout << "Searching directory: " << dir.absolutePath().toStdString() << std::endl;
+        std::cout << "查找范围: " << dir.absolutePath().toStdString() << std::endl;
 
         for (QDirIterator it(dir); it.hasNext();) {
             const auto& path = it.next();
@@ -75,16 +75,16 @@ void initialSearchForAppImages(const QDirSet& dirsToSearch, Worker& worker) {
                     // at application startup, we don't want to integrate AppImages that have been integrated already,
                     // as that it slows down very much
                     // the integration will be updated as soon as any of these AppImages is run with AppImageLauncher
-                    std::cout << "Found AppImage: " << path.toStdString() << std::endl;
+                    std::cout << "找到AppImage: " << path.toStdString() << std::endl;
 
                     if (!appimage_is_registered_in_system(path.toStdString().c_str())) {
-                        std::cout << "AppImage is not integrated yet, integrating" << std::endl;
+                        std::cout << "Appimage尚未集成，正在集成中" << std::endl;
                         worker.scheduleForIntegration(path);
                     } else if (!desktopFileHasBeenUpdatedSinceLastUpdate(path)) {
-                        std::cout << "AppImage has been integrated already but needs to be reintegrated" << std::endl;
+                        std::cout << "AppImage已经集成，需要重新集成" << std::endl;
                         worker.scheduleForIntegration(path);
                     } else {
-                        std::cout << "AppImage integrated already, skipping" << std::endl;
+                        std::cout << "正在跳过已集成的Appimage" << std::endl;
                     }
                 }
             }
@@ -99,18 +99,18 @@ int main(int argc, char* argv[]) {
     QCommandLineParser parser;
     parser.setApplicationDescription(
         QObject::tr(
-            "Tracks AppImages in applications directories (user's, system and other ones). "
-            "Automatically integrates AppImages moved into those directories and unintegrates ones removed from them."
+            "在应用程序目录中追踪Appimage (用户的系统的和其他目录的). "
+            "移动到目录以集成。从目录中移除以解除集成状态."
         )
     );
 
     QCommandLineOption listWatchedDirectoriesOption(
-        "list-watched-directories",
-        QObject::tr("Lists directories watched by this daemon and exit")
+        "显示正在监测的目录",
+        QObject::tr("显示被此程序监测的目录并退出")
     );
 
     if (!parser.addOption(listWatchedDirectoriesOption)) {
-        throw std::runtime_error("could not add Qt command line option for some reason");
+        throw std::runtime_error("无法找到QT命令行用法");
     }
 
     QCoreApplication app(argc, argv);
@@ -155,7 +155,7 @@ int main(int argc, char* argv[]) {
         if (newDirs.empty()) {
             qDebug() << "No new directories to watch detected";
         } else {
-            std::cout << "Discovered new directories to watch, integrating existing AppImages initially" << std::endl;
+            std::cout << "发现新的目录和Appimage" << std::endl;
 
             initialSearchForAppImages(newDirs, worker);
 
@@ -173,11 +173,11 @@ int main(int argc, char* argv[]) {
         if (disappearedDirs.empty()) {
             qDebug() << "No directories disappeared";
         } else {
-            std::cout << "Directories to watch disappeared, unintegrating AppImages formerly found in there"
+            std::cout << "监测目录已被移除。正在解除集成此目录下的Appimage。"
                       << std::endl;
 
             if (!cleanUpOldDesktopIntegrationResources(true)) {
-                std::cerr << "Error: Failed to clean up old desktop integration resources" << std::endl;
+                std::cerr << "错误：无法移除先前的集成的相关文件" << std::endl;
             }
         }
     });
@@ -204,10 +204,10 @@ int main(int argc, char* argv[]) {
 
     // after (re-)integrating all AppImages, clean up old desktop integration resources before start
     if (!cleanUpOldDesktopIntegrationResources()) {
-        std::cout << "Failed to clean up old desktop integration resources" << std::endl;
+        std::cout << "无法移除集成的相关桌面文件和资源" << std::endl;
     }
 
-    std::cout << "Watching directories: ";
+    std::cout << "正在监测以下目录: ";
     for (const auto& dir : watcher.directories()) {
         std::cout << dir.absolutePath().toStdString().c_str() << " ";
     }
@@ -219,7 +219,7 @@ int main(int argc, char* argv[]) {
                                Qt::QueuedConnection);
 
     if (!watcher.startWatching()) {
-        std::cerr << "Could not start watching directories" << std::endl;
+        std::cerr << "无法开始监测进程" << std::endl;
         return 1;
     }
 

@@ -15,6 +15,7 @@
 #include <QLayout>
 #include <QStyle>
 #include <QUrl>
+#include <QPushButton>
 
 // local includes
 #include "ui_first-run.h"
@@ -83,7 +84,7 @@ private Q_SLOTS:
         if (oldDir.isEmpty())
             oldDir = integratedAppImagesDestination().absolutePath();
 
-        auto newDir = QFileDialog::getExistingDirectory(this, tr("Choose integration destination dir"), oldDir);
+        auto newDir = QFileDialog::getExistingDirectory(this, tr("请选择Appimage保存目录"), oldDir);
 
         // the call above returns an empty string if the user aborts the dialog
         if (!newDir.isEmpty()) {
@@ -122,7 +123,9 @@ private:
 
         // reset defaults
         resetDefaults();
-
+        firstRunDialog->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确定"));
+        firstRunDialog->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
+        firstRunDialog->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setText(tr("恢复默认"));
         // set up all connections
         connect(firstRunDialog->buttonBox, &QDialogButtonBox::clicked, this, &FirstRunDialog::handleButtonClicked);
         connect(firstRunDialog->askMoveCheckBox, &QCheckBox::stateChanged, this, &FirstRunDialog::handleAskMoveCheckBoxStateChange);

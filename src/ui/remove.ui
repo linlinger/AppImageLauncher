@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Delete AppImage</string>
+   <string>移除 AppImage</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -27,8 +27,11 @@
      </property>
      <item>
       <widget class="QLabel" name="messageLabel">
+       <property name="locale">
+        <locale language="Chinese" country="China"/>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Are you sure you want to delete this AppImage?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;是否移除此Appimage？&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -49,6 +52,9 @@
          <height>0</height>
         </size>
        </property>
+       <property name="locale">
+        <locale language="Chinese" country="China"/>
+       </property>
        <property name="text">
         <string>%1</string>
        </property>
@@ -59,6 +65,9 @@
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="locale">
+        <locale language="Chinese" country="China"/>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

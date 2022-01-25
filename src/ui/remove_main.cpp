@@ -26,9 +26,9 @@ extern "C" {
 
 int main(int argc, char** argv) {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("Helper to delete integrated AppImages easily, e.g., from the application launcher's context menu"));
+    parser.setApplicationDescription(QObject::tr("轻松删除Appimage的一个小助手, 比如通过这个应用的右键菜单"));
     QApplication app(argc, argv);
-    QApplication::setApplicationDisplayName("AppImageLauncher");
+    QApplication::setApplicationDisplayName("AppImage启动器");
     QApplication::setWindowIcon(QIcon(":/AppImageLauncher.svg"));
 
     std::ostringstream version;
@@ -54,25 +54,25 @@ int main(int argc, char** argv) {
     const auto pathToAppImage = parser.positionalArguments().first();
 
     if (!QFile(pathToAppImage).exists()) {
-        QMessageBox::critical(nullptr, "Error", QObject::tr("Error: no such file or directory: %1").arg(pathToAppImage));
+        QMessageBox::critical(nullptr, "错误", QObject::tr("无此路径或文件 %1").arg(pathToAppImage));
         return 1;
     }
 
-    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, "Delete anyway?");
+    checkAuthorizationAndShowDialogIfNecessary(pathToAppImage, " 仍然删除?");
 
     const auto type = appimage_get_type(pathToAppImage.toStdString().c_str(), false);
 
     if (type <= 0 || type > 2) {
         QMessageBox::critical(
             nullptr,
-            QObject::tr("AppImage delete helper error"),
-            QObject::tr("Not an AppImage:\n\n%1").arg(pathToAppImage)
+            QObject::tr("Appimage卸载组件错误"),
+            QObject::tr("这个不是Appimage:\n\n%1").arg(pathToAppImage)
         );
         return 1;
     }
 
     // this tool should not do anything if the file isn't integrated
-    // the file is only supposed to work on integrated AppImages and _nothing else_
+    // the file is only supposed to work o  n integrated AppImages and _nothing else_
 //    if (!hasAlreadyBeenIntegrated(pathToAppImage)) {
 //        QMessageBox::critical(
 //                nullptr,
@@ -87,9 +87,11 @@ int main(int argc, char** argv) {
 
     ui.setupUi(&dialog);
     ui.pathLabel->setText(pathToAppImage);
-
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setText("确认");
+    ui.buttonBox->button(QDialogButtonBox::Cancel)->setText("取消");
     // must be done *after* loading the UI into the dialog
     setUpFallbackIconPaths(&dialog);
+    
 
     auto rv = dialog.exec();
 
@@ -103,8 +105,8 @@ int main(int argc, char** argv) {
     if (!unregisterAppImage(pathToAppImage)) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to unregister AppImage: %1").arg(pathToAppImage)
+                QObject::tr("错误"),
+                QObject::tr("无法移除 %1").arg(pathToAppImage)
         );
         return 1;
     }
@@ -115,8 +117,8 @@ int main(int argc, char** argv) {
     if (!bin.disposeAppImage(pathToAppImage)) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to move AppImage into trash bin directory")
+                QObject::tr("错误"),
+                QObject::tr("无法将其移动至回收站")
         );
         return 1;
     }
@@ -127,8 +129,8 @@ int main(int argc, char** argv) {
     if (!bin.cleanUp()) {
         QMessageBox::critical(
                 nullptr,
-                QObject::tr("Error"),
-                QObject::tr("Failed to clean up AppImage trash bin: %1").arg(bin.path())
+                QObject::tr("错误"),
+                QObject::tr("无法清空回收站: %1").arg(bin.path())
         );
         return 1;
     }
